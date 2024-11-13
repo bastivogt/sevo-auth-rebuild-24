@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}
     {{ title }}
@@ -16,25 +17,25 @@
 <ul>
     {% if user.is_authenticated == False %}
         <li>
-            <a href="{% url 'sevo-auth-sign-up' %}">Sign up</a>
+            <a href="{% url 'sevo-auth-sign-up' %}">{% trans "Sign up" %}</a>
         </li>
         
         <li>
-            <a href="{% url 'sevo-auth-sign-in' %}">Sign in</a>
+            <a href="{% url 'sevo-auth-sign-in' %}">{% trans "Sign in" %}</a>
         </li>
 
         <li>
-            <a href="{% url 'sevo-auth-forgot-password' %}">Forgot password</a>
+            <a href="{% url 'sevo-auth-forgot-password' %}">{% trans "Forgot password" %}</a>
         </li>
     {% else %}
         <li>
-            <a href="{% url 'sevo-auth-sign-out' %}">Sign out</a>
+            <a href="{% url 'sevo-auth-sign-out' %}">{% trans "Sign out" %}</a>
         </li>
         <li>
-            <a href="{% url 'sevo-auth-change-user-data' %}">Change user data</a>
+            <a href="{% url 'sevo-auth-change-user-data' %}">{% trans "Change user data" %}</a>
         </li>
         <li>
-            <a href="{% url 'sevo-auth-change-password' %}">Change password</a>
+            <a href="{% url 'sevo-auth-change-password' %}">{% trans "Change password" %}</a>
         </li>
 
     {% endif %}

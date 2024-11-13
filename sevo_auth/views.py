@@ -7,8 +7,13 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+#from django.contrib.auth.hashers import check_password
+from django.utils.translation import gettext as _
+from django.contrib import messages
 
-from . forms import SignUpForm, SignUpForm2, LoginForm, ChangeUserDataForm, ChangePasswordForm, SetNewPasswordForm, ForgotPasswordForm
+from django.core.mail import send_mail
+
+from . forms import SignUpForm2, LoginForm, ChangeUserDataForm, ChangePasswordForm, SetNewPasswordForm, ForgotPasswordForm
 from . models import PasswordResetToken
 
 
@@ -18,14 +23,14 @@ from . models import PasswordResetToken
 # fake home
 def fake_home(request):
     return render(request, "sevo_auth/fake_home.html", {
-        "title": "Fake home"
+        "title": _("Fake home")
     })
 
 # index
 def index(request):
     user = request.user
     return render(request, "sevo_auth/index.html", {
-        "title": "Auth index",
+        "title": _("Auth index"),
         "user": user
     })
 
@@ -56,7 +61,8 @@ def sign_up(request):
             first_name = form.cleaned_data["first_name"]
             last_name = form.cleaned_data["last_name"]
             password1 = form.cleaned_data["password1"]
-            password2 = form.cleaned_data["password2"]            
+            password2 = form.cleaned_data["password2"]    
+            print(username, email, first_name, last_name)        
 
             if password1 == password2:
                 try:
@@ -64,14 +70,21 @@ def sign_up(request):
                     user.set_password(password1)
                     user.save()
                     login(request=request, user=user)
+                    messages.add_message(request, messages.SUCCESS, _("You are sigend up!"))
                 except IntegrityError as e:
+                    messages.add_message(request, messages.ERROR, _("Something went wrong!"))
                     print(e)
+                    return render(request, "sevo_auth/sign_up.html", {
+                        "title": _("Sign up"),
+                        "form": form
+                    })
+                    
 
-            return redirect("sevo-auth-fake-home")
+            return redirect("sevo-auth-index")
 
          
     return render(request, "sevo_auth/sign_up.html", {
-        "title": "Sign up",
+        "title": _("Sign up"),
         "form": form
     })
 
@@ -86,14 +99,16 @@ def sign_in(request):
             password = form.cleaned_data["password"]
 
             user = authenticate(request, username=username, password=password)
-            print("jjjj")
-            print(user.username)
+
             if user is not None:
                 login(request=request, user=user)
+                messages.add_message(request, messages.SUCCESS, _("You are signed in!"))
                 return redirect("sevo-auth-index")
+            else:
+                messages.add_message(request, messages.ERROR, _("You are not signed in!"))
         
     return render(request, "sevo_auth/login.html", {
-        "title": "Login",
+        "title": _("Login"),
         "form": form
     })
 
@@ -101,6 +116,7 @@ def sign_in(request):
 # sign out
 def sign_out(request):
     logout(request)
+    messages.add_message(request, messages.SUCCESS, _("You are signed out!"))
     return redirect("sevo-auth-index")
 
 
@@ -134,7 +150,7 @@ def change_user_data(request):
                     
 
     return render(request, "sevo_auth/change_user_data.html", {
-        "title": "Change user data",
+        "title": _("Change user data"),
         "form": form
     })
 
@@ -150,14 +166,23 @@ def change_password(request):
     if request.method == "POST":
         form = ChangePasswordForm(request.POST)
         if form.is_valid():
+            password_old = form.cleaned_data["password_old"]
             password1 = form.cleaned_data["password1"]
             password2 = form.cleaned_data["password2"]
 
-            if password1 == password2:
-                user.set_password(password1)
-                user.save()
-                login(request=request, user=user)
-                return redirect("sevo-auth-index")
+            # tmp_user = authenticate(request, username=user.username, password=password_old)
+
+            #old_pwd_ok = check_password()
+
+            if user.check_password(password_old):
+                if password1 == password2:
+                    user.set_password(password1)
+                    user.save()
+                    login(request=request, user=user)
+                    messages.add_message(request, messages.SUCCESS, _("Password changed!"))
+                    return redirect("sevo-auth-index")
+                else:
+                    messages.add_message(request, messages.ERROR, _("Something went wrong, try again!"))
 
     return render(request, "sevo_auth/change_password.html", {
         "title": "Change password",
@@ -195,9 +220,18 @@ def forgot_password(request):
                 print("###############################################")
                 print(f"Resetlink per Mail: {link}")
                 print("###############################################")
+                send_mail(
+                    _("Passwordreset"),
+                    f"Resetlink: {link}",
+                    #settings.EMAIL_HOST_USER,
+                    "auth@django.com",
+                    [user.email],
+                    fail_silently=False,
+                )       
                 return redirect("sevo-auth-index")
             except:
                 return redirect("sevo-auth-forgot-password")
+                
 
 
     return render(request, "sevo_auth/forgot_password.html", {
@@ -227,8 +261,10 @@ def set_new_password(request, token):
                 prt.done = True
                 prt.save()
                 login(request=request, user=user)
+                messages.add_message(request, messages.SUCCESS, _("New password setted!"))
                 return redirect("sevo-auth-index")
-
+            else:
+                messages.add_message(request, messages.ERROR, _("Something went wrong, ty again!"))
             
 
             

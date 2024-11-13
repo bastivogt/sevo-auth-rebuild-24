@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}{{ title }}{% endblock %}
 
@@ -23,7 +24,7 @@
             </div>
         {% endfor %}
 
-        <button class="btn btn-primary">Sign up</button>
+        <button class="btn btn-primary">{% trans "Sign up" %}</button>
     </form>
 
 {% endblock %}
