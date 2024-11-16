@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-17 00:38+0100\n"
+"POT-Creation-Date: 2024-11-17 00:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,6 +70,10 @@ msgstr "Zurück zu index"
 msgid "Forgot password"
 msgstr "Passwort vergessen"
 
+#: sevo_auth/templates/sevo_auth/index.html:13
+msgid "Hello"
+msgstr "Hallo"
+
 #: sevo_auth/templates/sevo_auth/index.html:20
 #: sevo_auth/templates/sevo_auth/sign_up.html:28 sevo_auth/views.py:81
 #: sevo_auth/views.py:91
@@ -110,23 +114,23 @@ msgstr "Auth index"
 
 #: sevo_auth/views.py:76
 msgid "You are sigend up!"
-msgstr ""
+msgstr "Du bist registriert!"
 
 #: sevo_auth/views.py:78
 msgid "Something went wrong!"
-msgstr ""
+msgstr "Etwas ist schief gelaufen!"
 
 #: sevo_auth/views.py:111
 msgid "You are signed in!"
-msgstr ""
+msgstr "Du bist angemeldet!"
 
 #: sevo_auth/views.py:114
 msgid "You are not signed in!"
-msgstr ""
+msgstr "Du bist nicht angemeldet!"
 
 #: sevo_auth/views.py:125
 msgid "You are signed out!"
-msgstr ""
+msgstr "Du bist abgemeldet!"
 
 #: sevo_auth/views.py:188
 msgid "Password changed!"
@@ -134,7 +138,7 @@ msgstr "Altes Passwort"
 
 #: sevo_auth/views.py:191
 msgid "Something went wrong, try again!"
-msgstr ""
+msgstr "Etwas ist schief gelaufen, versuche es nochmal!"
 
 #: sevo_auth/views.py:230
 msgid "Passwordreset"

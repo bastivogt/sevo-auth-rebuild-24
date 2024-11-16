@@ -10,7 +10,7 @@
 <h1>{{ title }}</h1>
 {% if user %}
     <p>
-        Hallo, {{user}}!
+        {% trans "Hello" %}, <a href="{% url 'sevo-auth-change-user-data' %}">{{user}}</a>!
     </p>
 {% endif %}
 
