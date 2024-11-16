@@ -109,7 +109,7 @@ def sign_in(request):
             if user is not None:
                 login(request=request, user=user)
                 messages.add_message(request, messages.SUCCESS, _("You are signed in!"))
-                return redirect("sevo-auth-index")
+                return redirect(settings.SEVO_AUTH_REDIRECT_AFTER_SIGN_IN)
             else:
                 messages.add_message(request, messages.ERROR, _("You are not signed in!"))
         
@@ -123,7 +123,7 @@ def sign_in(request):
 def sign_out(request):
     logout(request)
     messages.add_message(request, messages.SUCCESS, _("You are signed out!"))
-    return redirect("sevo-auth-index")
+    return redirect(settings.SEVO_AUTH_REDIRECT_AFTER_SIGN_OUT)
 
 
 # change user data
@@ -186,7 +186,7 @@ def change_password(request):
                     user.save()
                     login(request=request, user=user)
                     messages.add_message(request, messages.SUCCESS, _("Password changed!"))
-                    return redirect("sevo-auth-index")
+                    return redirect(settings.SEVO_AUTH_REDIRECT_AFTER_PASSWORD_CHANGE)
                 else:
                     messages.add_message(request, messages.ERROR, _("Something went wrong, try again!"))
 
@@ -234,7 +234,7 @@ def forgot_password(request):
                     [user.email],
                     fail_silently=False,
                 )       
-                return redirect("sevo-auth-index")
+                return redirect(settings.SEVO_AUTH_REDIRECT_AFTER_FORGOT_PASSWORD)
             except:
                 return redirect("sevo-auth-forgot-password")
                 
@@ -268,7 +268,7 @@ def set_new_password(request, token):
                 prt.save()
                 login(request=request, user=user)
                 messages.add_message(request, messages.SUCCESS, _("New password setted!"))
-                return redirect("sevo-auth-index")
+                return redirect(settings.SEVO_AUTH_REDIRECT_AFTER_SET_NEW_PASSWORD)
             else:
                 messages.add_message(request, messages.ERROR, _("Something went wrong, ty again!"))
             

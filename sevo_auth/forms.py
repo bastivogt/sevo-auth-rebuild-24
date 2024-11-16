@@ -127,8 +127,8 @@ class ChangePasswordForm(forms.Form):
         #print(self.fields["password2"])
 
         self.fields["password_old"].label = _("Password old")
-        self.fields["password1"].label = _("Password")
-        self.fields["password2"].label = _("Password confirm")
+        self.fields["password1"].label = _("Password new")
+        self.fields["password2"].label = _("Password new confirm")
 
         self.fields["password_old"].widget.attrs["class"] = "form-control"
         self.fields["password1"].widget.attrs["class"] = "form-control"
