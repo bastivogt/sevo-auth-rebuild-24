@@ -16,6 +16,8 @@ from django.core.mail import send_mail
 from . forms import SignUpForm2, LoginForm, ChangeUserDataForm, ChangePasswordForm, SetNewPasswordForm, ForgotPasswordForm
 from . models import PasswordResetToken
 
+from . import settings
+
 
 
 # Create your views here.
@@ -51,42 +53,46 @@ def index(request):
 
 # sign up
 def sign_up(request):
-    form = SignUpForm2()
+    if settings.SEVO_AUTH_CAN_SIGN_UP:
+        form = SignUpForm2()
 
-    if request.method == "POST":
-        form = SignUpForm2(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data["username"]
-            email = form.cleaned_data["email"]
-            first_name = form.cleaned_data["first_name"]
-            last_name = form.cleaned_data["last_name"]
-            password1 = form.cleaned_data["password1"]
-            password2 = form.cleaned_data["password2"]    
-            print(username, email, first_name, last_name)        
+        if request.method == "POST":
+            form = SignUpForm2(request.POST)
+            if form.is_valid():
+                username = form.cleaned_data["username"]
+                email = form.cleaned_data["email"]
+                first_name = form.cleaned_data["first_name"]
+                last_name = form.cleaned_data["last_name"]
+                password1 = form.cleaned_data["password1"]
+                password2 = form.cleaned_data["password2"]    
+                print(username, email, first_name, last_name)        
 
-            if password1 == password2:
-                try:
-                    user = User(username=username, email=email, first_name=first_name, last_name=last_name)
-                    user.set_password(password1)
-                    user.save()
-                    login(request=request, user=user)
-                    messages.add_message(request, messages.SUCCESS, _("You are sigend up!"))
-                except IntegrityError as e:
-                    messages.add_message(request, messages.ERROR, _("Something went wrong!"))
-                    print(e)
-                    return render(request, "sevo_auth/sign_up.html", {
-                        "title": _("Sign up"),
-                        "form": form
-                    })
-                    
+                if password1 == password2:
+                    try:
+                        user = User(username=username, email=email, first_name=first_name, last_name=last_name)
+                        user.set_password(password1)
+                        user.save()
+                        login(request=request, user=user)
+                        messages.add_message(request, messages.SUCCESS, _("You are sigend up!"))
+                    except IntegrityError as e:
+                        messages.add_message(request, messages.ERROR, _("Something went wrong!"))
+                        print(e)
+                        return render(request, "sevo_auth/sign_up.html", {
+                            "title": _("Sign up"),
+                            "form": form
+                        })
+                        
 
-            return redirect("sevo-auth-index")
+                #return redirect("sevo-auth-index")
+                return redirect(settings.SEVO_AUTH_REDIRECT_AFTER_SIGN_IN)
 
-         
-    return render(request, "sevo_auth/sign_up.html", {
-        "title": _("Sign up"),
-        "form": form
-    })
+            
+        return render(request, "sevo_auth/sign_up.html", {
+            "title": _("Sign up"),
+            "form": form
+        })
+    else:
+        return redirect(settings.SEVO_AUTH_REDIRECT_IF_CANT_SIGN_UP)
 
 
 # sign in

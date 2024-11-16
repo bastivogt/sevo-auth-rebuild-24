@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "sevo_auth"
+    "sevo_auth",
+    "immo_test", 
+    "immo_test_many2many"
+
 ]
 
 MIDDLEWARE = [
@@ -134,6 +137,10 @@ STATICFILES_DIRS = [
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
@@ -154,3 +161,8 @@ if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+
+# SEVO_AUTH
+SEVO_AUTH_CAN_SIGN_UP = False
