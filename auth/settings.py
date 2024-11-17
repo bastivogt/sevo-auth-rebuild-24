@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "sevo_auth",
     "immo_test", 
-    "immo_test_many2many"
+    "immo_test_many2many", 
+    "sevo_pages",
 
 ]
 

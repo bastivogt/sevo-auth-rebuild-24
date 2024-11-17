@@ -29,7 +29,8 @@ urlpatterns = [
     path("auth/", include("sevo_auth.urls")),
     path("", fake_home, name="sevo-auth-fake-home"),
 
-    path("immo/", include("immo_test.urls"))
+    path("immo/", include("immo_test.urls")),
+    path("pages/", include("sevo_pages.urls"))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
