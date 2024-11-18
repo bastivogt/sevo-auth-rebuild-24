@@ -29,11 +29,11 @@ class Page(models.Model):
         return f"#{self.id} {self.title}"
     
 
-    def get_all_articles(self):
+    def get_all_pagearticles(self):
         return self.pagearticle_set.all()
     
-    def get_published_articles(self):
-        return self.get_all_articles().filter(published=True)
+    def get_published_pagearticles(self):
+        return self.get_all_pagearticles().filter(published=True)
     
     class Meta:
         verbose_name = _("Page")
@@ -73,6 +73,9 @@ class PageArticle(models.Model):
         return f"Page: #{self.article.id} [name: {self.article.name}, title: {self.article.title}]"
     
 
+    def get_article(self):
+        return self.article
+
     class Meta:
         ordering = ["order"]
         verbose_name = _("Page Article")
@@ -98,6 +101,9 @@ class PageMenu(models.Model):
         return self.url_path
     
 
+    def get_page(self):
+        return self.page
+
     class Meta:
         ordering = ["order"]
         verbose_name = _("Page Menu")
@@ -108,12 +114,12 @@ class PageMenu(models.Model):
 class Menu(models.Model):
     name = models.CharField(max_length=50, verbose_name=_("Name"))
 
-    def get_all_page_menus(self):
+    def get_all_pagemenus(self):
         return self.pagemenu_set.all()
     
 
-    def get_published_page_menus(self):
-        return self.get_all_page_menus().filter(published=True)
+    def get_published_pagemenus(self):
+        return self.get_all_pagemenus().filter(published=True)
 
     def __str__(self):
         return f"{self.name}"
