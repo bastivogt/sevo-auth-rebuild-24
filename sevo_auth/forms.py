@@ -67,6 +67,11 @@ class SignUpForm2(forms.Form):
         self.fields["password2"].label = _("Password confirm")
 
 
+        for item in self.fields:
+            self.fields[item].label_suffix = ""
+
+
+
         self.fields["email"].widget.attrs["class"] = "form-control"
         self.fields["username"].widget.attrs["class"] = "form-control"
         self.fields["first_name"].widget.attrs["class"] = "form-control"
@@ -82,6 +87,11 @@ class LoginForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        for item in self.fields:
+            self.fields[item].label_suffix = ""
+
+
         self.fields["username"].widget.attrs["class"] = "form-control"
         self.fields["password"].widget.attrs["class"] = "form-control"
 
@@ -106,7 +116,8 @@ class ChangeUserDataForm(forms.Form):
         self.fields["first_name"].label = _("Firstname")
         self.fields["last_name"].label = _("Lastname")
 
-
+        for item in self.fields:
+            self.fields[item].label_suffix = ""
 
         self.fields["email"].widget.attrs["class"] = "form-control"
         self.fields["username"].widget.attrs["class"] = "form-control"
@@ -130,6 +141,10 @@ class ChangePasswordForm(forms.Form):
         self.fields["password1"].label = _("Password new")
         self.fields["password2"].label = _("Password new confirm")
 
+
+        for item in self.fields:
+            self.fields[item].label_suffix = ""
+
         self.fields["password_old"].widget.attrs["class"] = "form-control"
         self.fields["password1"].widget.attrs["class"] = "form-control"
         self.fields["password2"].widget.attrs["class"] = "form-control"
@@ -147,6 +162,9 @@ class ForgotPasswordForm(forms.Form):
 
         self.fields["email"].label = _("Email")
         self.fields["username"].label = _("Username")
+
+        for item in self.fields:
+            self.fields[item].label_suffix = ""
 
         self.fields["username"].widget.attrs["class"] = "form-control"
         self.fields["email"].widget.attrs["class"] = "form-control"
@@ -166,6 +184,10 @@ class SetNewPasswordForm(forms.Form):
         self.fields["username"].label = _("Username")
         self.fields["password1"].label = _("Password")
         self.fields["password2"].label = _("Password confirm")
+
+        for item in self.fields:
+            self.fields[item].label_suffix = ""
+
 
         self.fields["username"].widget.attrs["class"] = "form-control"
         self.fields["email"].widget.attrs["class"] = "form-control"
