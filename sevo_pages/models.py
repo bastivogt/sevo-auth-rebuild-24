@@ -12,25 +12,28 @@ class Page(models.Model):
         META = 1, _("Meta"),
         NONE = 2, _("None")
 
-    title = models.CharField(max_length=50)
-    slug = models.SlugField(max_length=50, unique=True)
-    meta_description = models.CharField(max_length=160, blank=True, null=True)
-    meta_custom = models.TextField(blank=True, null=True)
+    title = models.CharField(max_length=50, verbose_name=_("Title"))
+    slug = models.SlugField(max_length=50, unique=True, verbose_name=_("Slug"))
+    meta_description = models.CharField(max_length=160, blank=True, null=True, verbose_name=_("Meta description"))
+    meta_custom = models.TextField(blank=True, null=True, verbose_name=_("Meta custom tags"))
     #articles = models.ManyToManyField("Article", blank=True)
 
     menu = models.PositiveSmallIntegerField(choices=MenueChoices, default=MenueChoices.MAIN)
     menu_order = models.PositiveIntegerField(default=0)
-    published = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    published = models.BooleanField(default=True, verbose_name=_("Published"))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Created at"))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Updated at"))
 
 
     def __str__(self):
         return f"#{self.id} {self.title}"
     
 
-    def get_articles(self):
+    def get_all_articles(self):
         return self.pagearticle_set.all()
+    
+    def get_published_articles(self):
+        return self.get_all_articles().filter(published=True)
     
     class Meta:
         verbose_name = _("Page")
@@ -38,15 +41,15 @@ class Page(models.Model):
 
 
 class Article(models.Model):
-    name = models.CharField(max_length=150)
-    title = models.CharField(max_length=150)
+    name = models.CharField(max_length=150, verbose_name=_("Name"))
+    title = models.CharField(max_length=150, verbose_name=_("Title"))
 
-    content = models.TextField()
+    content = models.TextField(verbose_name=_("Content"))
     # order = models.PositiveIntegerField(default=0)
     # page = models.ForeignKey("Page", blank=True, null=True, on_delete=models.SET_NULL)
-    # published = models.BooleanField(default=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    published = models.BooleanField(default=True, verbose_name=_("Published"))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Created at"))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Updated at"))
 
     def __str__(self):
         return f"#{self.id} {self.title} [{self.name}]"
@@ -62,15 +65,59 @@ class Article(models.Model):
 
 class PageArticle(models.Model):
     page = models.ForeignKey(Page, blank=True, null=True, on_delete=models.SET_NULL)
-    article = models.ForeignKey(Article, blank=True, null=True, on_delete=models.SET_NULL)
-    order = models.PositiveIntegerField(default=0)
-    published = models.BooleanField(default=True)
+    article = models.ForeignKey(Article, blank=True, null=True, on_delete=models.SET_NULL, verbose_name=_("Article"))
+    order = models.PositiveIntegerField(default=0, verbose_name=_("Order"))
+    published = models.BooleanField(default=True, verbose_name=_("Published"))
 
     def __str__(self):
-        return f"#{self.article.id} [name: {self.article.name}, title: {self.article.title}]"
+        return f"Page: #{self.article.id} [name: {self.article.name}, title: {self.article.title}]"
     
 
     class Meta:
         ordering = ["order"]
         verbose_name = _("Page Article")
         verbose_name_plural = _("Page Articles")
+
+
+
+class PageMenu(models.Model):
+    menu = models.ForeignKey("Menu", blank=True, null=True, on_delete=models.SET_NULL)
+    page = models.ForeignKey(Page, blank=True, null=True, on_delete=models.CASCADE)
+    url_path = models.SlugField(blank=True, null=True, verbose_name=_("URL path"))
+    is_reverse = models.BooleanField(default=False, verbose_name=_("Is reverse"))
+    order = models.PositiveIntegerField(default=0, verbose_name=_("Order"))
+    published = models.BooleanField(default=True, verbose_name=_("Published"))
+
+    def __str__(self):
+        return(f"#{self.id} Page Menu [#{self.page.id} {self.page.title}]")
+    
+    def get_url_path(self, is_reverse=False):
+        from django.urls import reverse
+        if is_reverse:
+            return reverse(self.url_path)
+        return self.url_path
+    
+
+    class Meta:
+        ordering = ["order"]
+        verbose_name = _("Page Menu")
+        verbose_name_plural = _("Page Menus")
+
+
+
+class Menu(models.Model):
+    name = models.CharField(max_length=50, verbose_name=_("Name"))
+
+    def get_all_page_menus(self):
+        return self.pagemenu_set.all()
+    
+
+    def get_published_page_menus(self):
+        return self.get_all_page_menus().filter(published=True)
+
+    def __str__(self):
+        return f"{self.name}"
+    
+    class Meta:
+        verbose_name = _("Menu")
+        verbose_name_plural = _("Menus")

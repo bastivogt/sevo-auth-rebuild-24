@@ -1,6 +1,7 @@
 from django.contrib import admin
+from django.utils.translation import gettext as _
 
-from .models import Page, Article, PageArticle
+from .models import Page, Article, PageArticle, PageMenu, Menu
 
 # class ArticleInline(admin.StackedInline):
 #     model = Article
@@ -20,6 +21,7 @@ class ArticleAdmin(admin.ModelAdmin):
         "name",
         "created_at",
         "updated_at",
+        "published"
     ]
 
     list_display_links = [
@@ -29,7 +31,8 @@ class ArticleAdmin(admin.ModelAdmin):
 
     list_filter = [
         "created_at",
-        "updated_at"
+        "updated_at",
+        "published"
     ]
 
     search_fields = [
@@ -70,7 +73,35 @@ class PageAdmin(admin.ModelAdmin):
     
 
 
+class PageMenuInline(admin.StackedInline):
+    model = PageMenu
+    extra = 0
 
+    fieldsets = [
+        (None, {
+            "fields": [
+                "page", 
+                "order",
+                "published"
+            ]
+        }),
+        (_("Advanced"), {
+            "classes": ["wide, collapse"],
+            "fields": [
+                "url_path",
+                "is_reverse"
+            ]
+        })
+    ]
+
+class MenuAdmin(admin.ModelAdmin):
+    inlines = [
+        PageMenuInline
+    ]
+
+
+#admin.site.register(PageMenu)
+admin.site.register(Menu, MenuAdmin)
 admin.site.register(Page, PageAdmin)
 admin.site.register(Article, ArticleAdmin)
 
