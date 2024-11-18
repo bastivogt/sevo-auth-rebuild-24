@@ -18,8 +18,8 @@ class Page(models.Model):
     meta_custom = models.TextField(blank=True, null=True, verbose_name=_("Meta custom tags"))
     #articles = models.ManyToManyField("Article", blank=True)
 
-    menu = models.PositiveSmallIntegerField(choices=MenueChoices, default=MenueChoices.MAIN)
-    menu_order = models.PositiveIntegerField(default=0)
+    # menu = models.PositiveSmallIntegerField(choices=MenueChoices, default=MenueChoices.MAIN)
+    # menu_order = models.PositiveIntegerField(default=0)
     published = models.BooleanField(default=True, verbose_name=_("Published"))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Created at"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Updated at"))
@@ -70,7 +70,7 @@ class PageArticle(models.Model):
     published = models.BooleanField(default=True, verbose_name=_("Published"))
 
     def __str__(self):
-        return f"Page: #{self.article.id} [name: {self.article.name}, title: {self.article.title}]"
+        return f"#{self.id} [Page: #{self.article.id} [name: {self.article.name}, title: {self.article.title}]]"
     
 
     def get_article(self):

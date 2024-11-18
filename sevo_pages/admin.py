@@ -47,8 +47,8 @@ class PageAdmin(admin.ModelAdmin):
     list_display = [
         "id",
         "title",
-        "menu",
-        "menu_order",
+        # "menu",
+        # "menu_order",
         "created_at",
         "updated_at",
         "published",
