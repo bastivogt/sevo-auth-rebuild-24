@@ -82,7 +82,7 @@ class PageArticle(models.Model):
 
 class PageMenu(models.Model):
     menu = models.ForeignKey("Menu", blank=True, null=True, on_delete=models.SET_NULL)
-    page = models.ForeignKey(Page, blank=True, null=True, on_delete=models.CASCADE)
+    page = models.ForeignKey(Page, blank=True, null=True, on_delete=models.CASCADE, verbose_name=_("Page"))
     url_path = models.SlugField(blank=True, null=True, verbose_name=_("URL path"))
     is_reverse = models.BooleanField(default=False, verbose_name=_("Is reverse"))
     order = models.PositiveIntegerField(default=0, verbose_name=_("Order"))
