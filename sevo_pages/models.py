@@ -66,6 +66,16 @@ class Page(models.Model):
             home = False
         return home
     
+    def save(self, *args, **kwargs):
+        #super().save(*args, **kwargs)
+        if self.is_home:
+            pages = Page.objects.all()
+            for page in pages:
+                page.is_home = False
+                page.save()
+            self.is_home = True
+        super().save(*args, **kwargs)
+    
     class Meta:
         verbose_name = _("Page")
         verbose_name_plural = _("Pages")

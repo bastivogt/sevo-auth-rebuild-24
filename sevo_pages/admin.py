@@ -58,7 +58,6 @@ class PageAdmin(admin.ModelAdmin):
     list_display_links = [
         "id",
         "title",
-        "is_home"
     ]
 
     prepopulated_fields = {
