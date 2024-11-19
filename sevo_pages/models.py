@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from django.utils.translation import gettext as _
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from django.contrib import admin
 
 # Create your models here.
 
@@ -63,7 +64,7 @@ class Page(models.Model):
         try:
             home = cls.objects.get(is_home=True)
         except:
-            home = False
+            home = cls.objects.first
         return home
     
     def save(self, *args, **kwargs):
@@ -118,8 +119,6 @@ class PageArticle(models.Model):
         return self.article
     
 
-    
-
     class Meta:
         ordering = ["order"]
         verbose_name = _("Page Article")
@@ -157,7 +156,6 @@ class PageMenu(models.Model):
 
 class Menu(models.Model):
     name = models.CharField(max_length=50, verbose_name=_("Name"))
-
     def get_all_pagemenus(self):
         return self.pagemenu_set.all()
     
@@ -165,8 +163,22 @@ class Menu(models.Model):
     def get_published_pagemenus(self):
         return self.get_all_pagemenus().filter(published=True)
 
+    @admin.display(description=_("Published Pages"))
+    def get_published_pages_str(self):
+        pm = self.get_published_pagemenus()
+        pages = [item.page.title for item in pm]
+        return ", ".join(pages)
+    
+    @admin.display(description=_("All Pages"))
+    def get_all_pages_str(self):
+        pm = self.get_all_pagemenus()
+        pages = [item.page.title for item in pm]
+        return ", ".join(pages)
+
     def __str__(self):
         return f"{self.name}"
+    
+
     
     class Meta:
         verbose_name = _("Menu")

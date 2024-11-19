@@ -100,6 +100,12 @@ class MenuAdmin(admin.ModelAdmin):
         PageMenuInline
     ]
 
+    list_display = [
+        "name",
+        "get_published_pages_str",
+        "get_all_pages_str"
+    ]
+
 
 #admin.site.register(PageMenu)
 admin.site.register(Menu, MenuAdmin)
