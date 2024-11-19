@@ -1,0 +1,29 @@
+<footer class="bg-black text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-2">
+                <h4>Navigation</h4>
+                <ul>
+                    {% for pmenu in menu_main.get_published_pagemenus %}
+                        <li>
+                            <a href="{{ pmenu.get_page.get_absolute_url }}">{{ pmenu.get_page.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-4 mb-2">
+                <h4>Meta</h4>
+                <ul>
+                    {% for pmenu in menu_meta.get_published_pagemenus %}
+                        <li>
+                            <a href="{{ pmenu.get_page.get_absolute_url }}">{{ pmenu.get_page.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-4 mb-2">
+                <h4>Contact</h4>
+            </div>
+        </div>
+    </div>
+</footer>

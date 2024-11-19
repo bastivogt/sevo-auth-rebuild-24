@@ -1,5 +1,8 @@
 from django.db import models
+from django.shortcuts import redirect
 from django.utils.translation import gettext as _
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 # Create your models here.
 
@@ -20,7 +23,10 @@ class Page(models.Model):
 
     # menu = models.PositiveSmallIntegerField(choices=MenueChoices, default=MenueChoices.MAIN)
     # menu_order = models.PositiveIntegerField(default=0)
+    url_path = models.CharField(max_length=255, blank=True, null=True, verbose_name=_("URL path"))
+    is_reverse = models.BooleanField(default=False, verbose_name=_("Is reverse"))
     published = models.BooleanField(default=True, verbose_name=_("Published"))
+    is_home = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Created at"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Updated at"))
 
@@ -34,6 +40,31 @@ class Page(models.Model):
     
     def get_published_pagearticles(self):
         return self.get_all_pagearticles().filter(published=True)
+    
+
+    def get_absolute_url(self):
+        if self.url_path != None:
+            if self.is_reverse:
+                path = reverse(self.url_path)
+            else:
+                path = self.url_path
+
+            return path
+        if self.is_home:
+            return reverse("homepage")
+        return reverse("sevo-pages-detail", kwargs={"slug": self.slug})
+    
+
+    def is_active(self, path):
+        return False
+    
+    @classmethod
+    def get_home_page(cls):
+        try:
+            home = cls.objects.get(is_home=True)
+        except:
+            home = False
+        return home
     
     class Meta:
         verbose_name = _("Page")
@@ -75,6 +106,9 @@ class PageArticle(models.Model):
 
     def get_article(self):
         return self.article
+    
+
+    
 
     class Meta:
         ordering = ["order"]

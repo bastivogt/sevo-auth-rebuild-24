@@ -22,15 +22,20 @@ from django.conf.urls.static import static
 
 from sevo_auth.views import fake_home
 
+from sevo_pages.views import homepage
+
+
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("auth/", include("sevo_auth.urls")),
-    path("", fake_home, name="sevo-auth-fake-home"),
+    path("", homepage, name="homepage"),
+    path("page/", include("sevo_pages.urls")),
 
     path("immo/", include("immo_test.urls")),
-    path("pages/", include("sevo_pages.urls"))
+    path("page/", include("sevo_pages.urls"))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
