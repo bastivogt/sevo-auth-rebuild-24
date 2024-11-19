@@ -42,6 +42,7 @@ class GalleryAdmin(admin.ModelAdmin):
     ]
 
     list_display_links = [
+        "id",
         "title"
     ]
 

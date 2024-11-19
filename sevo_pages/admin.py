@@ -118,9 +118,19 @@ class MenuAdmin(admin.ModelAdmin):
     ]
 
     list_display = [
+        "id",
         "name",
         "get_published_pages_str",
         "get_all_pages_str"
+    ]
+
+    list_display_links = [
+        "id",
+        "name"
+    ]
+
+    readonly_fields = [
+        "id"
     ]
 
 

@@ -14,3 +14,8 @@ class PasswordResetToken(models.Model):
 
     def __str__(self):
         return f"user: {self.user}, token: {self.token}"
+    
+
+    class Meta:
+        verbose_name = "Password Reset Token"
+        verbose_name_plural = "Password Reset Tokens"

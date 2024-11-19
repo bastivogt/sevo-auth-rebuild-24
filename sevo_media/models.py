@@ -17,8 +17,8 @@ class PictureTag(models.Model):
         ordering = [
             "-updated_at"
         ]
-        verbose_name = _("Image Tag")
-        verbose_name_plural = _("Image Tags")
+        verbose_name = _("Picture Tag")
+        verbose_name_plural = _("Picture Tags")
 
 
 class Picture(models.Model):

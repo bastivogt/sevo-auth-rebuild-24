@@ -8,8 +8,8 @@ from sevo_media.models import Picture
 # Create your models here.
 
 class GalleryPicture(models.Model):
-    picture = models.ForeignKey(Picture, blank=True, null=True, on_delete=models.SET_NULL)
-    gallery = models.ForeignKey("Gallery", blank=True, null=True, on_delete=models.SET_NULL)
+    picture = models.ForeignKey(Picture, blank=True, null=True, on_delete=models.CASCADE)
+    gallery = models.ForeignKey("Gallery", blank=True, null=True, on_delete=models.CASCADE)
 
     @admin.display(description="Picture Preview")
     def get_image_tag(self):
@@ -17,6 +17,10 @@ class GalleryPicture(models.Model):
     
     def __str__(self):
         return str(self.picture)
+    
+    class Meta:
+        verbose_name = _("Gallery Picture")
+        verbose_name_plural = _("Gallery Pictures")
 
 
 class Gallery(models.Model):
