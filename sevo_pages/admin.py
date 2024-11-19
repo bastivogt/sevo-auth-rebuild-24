@@ -44,11 +44,26 @@ class ArticleAdmin(admin.ModelAdmin):
 
 
 class PageAdmin(admin.ModelAdmin):
+    raw_id_fields = [
+        "picture"
+    ]
+    fields = [
+        "title",
+        "slug",
+        "meta_description",
+        "meta_custom",
+        "picture",
+        "url_path",
+        "is_reverse",
+        "published",
+        "is_home"
+    ]
     list_display = [
         "id",
         "title",
         # "menu",
         # "menu_order",
+        "get_image_tag",
         "created_at",
         "updated_at",
         "is_home",
@@ -58,6 +73,8 @@ class PageAdmin(admin.ModelAdmin):
     list_display_links = [
         "id",
         "title",
+        "get_image_tag"
+    
     ]
 
     prepopulated_fields = {

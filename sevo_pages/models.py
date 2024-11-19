@@ -5,6 +5,8 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.contrib import admin
 
+from sevo_media.models import Picture
+
 # Create your models here.
 
 
@@ -20,6 +22,7 @@ class Page(models.Model):
     slug = models.SlugField(max_length=50, unique=True, verbose_name=_("Slug"))
     meta_description = models.CharField(max_length=160, blank=True, null=True, verbose_name=_("Meta description"))
     meta_custom = models.TextField(blank=True, null=True, verbose_name=_("Meta custom tags"))
+    picture = models.ForeignKey(Picture, blank=True, null=True, on_delete=models.SET_NULL)
     #articles = models.ManyToManyField("Article", blank=True)
 
     # menu = models.PositiveSmallIntegerField(choices=MenueChoices, default=MenueChoices.MAIN)
@@ -34,6 +37,12 @@ class Page(models.Model):
 
     def __str__(self):
         return f"#{self.id} {self.title}"
+    
+    @admin.display(description="Page Picture")
+    def get_image_tag(self):
+        if self.picture:
+            return self.picture.get_image_tag()
+        return None
     
 
     def get_all_pagearticles(self):

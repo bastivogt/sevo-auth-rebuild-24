@@ -7,6 +7,14 @@
 {% endblock %}
 
 
+{% block header %}
+    {% if page.picture %}
+        <img class="object-fit-cover" src="{{ page.picture.get_image_url }}" width="100%" height="500" />
+    {% endif %}
+{% endblock %}
+
+
+
 {% block content %}
     {% for particle in page.get_published_pagearticles %}
         <article>
