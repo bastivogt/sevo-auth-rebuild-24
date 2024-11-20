@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     "immo_test_many2many", 
     "sevo_pages",
     "sevo_media",
-    "sevo_gallery"
+    "sevo_gallery",
+    "sevo_downloads"
 
 ]
 

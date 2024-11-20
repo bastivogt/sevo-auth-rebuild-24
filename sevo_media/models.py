@@ -70,3 +70,63 @@ class Picture(models.Model):
 
         verbose_name = _("Picture")
         verbose_name_plural = _("Pictures")
+
+
+
+
+
+class FileTag(models.Model):
+    title = models.CharField(max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = [
+            "-updated_at"
+        ]
+        verbose_name = _("File Tag")
+        verbose_name_plural = _("File Tags")
+
+
+
+class File(models.Model):
+    title = models.CharField(max_length=50)
+    file = models.FileField(upload_to="uploads/files")
+    tags = models.ManyToManyField(FileTag, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.title} [{self.get_tags_as_str()}]"
+    
+    def delete(self, *args, **kwargs):
+        print("DELETE File")
+        self.file.delete()
+  
+        return super().delete(*args, **kwargs)
+
+    @admin.display(description="File URL")
+    def get_file_url(self):
+        if self.file:
+            return self.file.url
+        return None
+    
+    @admin.display(description="Tags")
+    def get_tags_as_str(self):
+        tags = self.tags.all()
+        tag_list = [item.title for item in tags]
+        return ", ".join(tag_list)
+    
+    class Meta:
+        ordering = [
+            "-updated_at"
+        ]
+
+        verbose_name = _("File")
+        verbose_name_plural = _("Files")
+
+

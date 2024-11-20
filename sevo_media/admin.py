@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from . models import PictureTag, Picture
+from . models import PictureTag, Picture, FileTag, File
 
 # Register your models here.
 
@@ -57,6 +57,56 @@ class PictureAdmin(admin.ModelAdmin):
     ]
 
 
+
+class FileTagAdmin(admin.ModelAdmin):
+    list_display = [
+        "id",
+        "title"
+    ]
+
+    list_display_links = [
+        "id",
+        "title"
+    ]
+
+
+class FileAdmin(admin.ModelAdmin):
+    fields = [
+        "id",
+        "title",
+        "file",
+        "get_file_url",
+        "tags",
+    ]
+
+    list_display = [
+        "id",
+        "title",
+        "get_tags_as_str",
+        "created_at",
+        "updated_at"
+    ]
+
+    list_display_links = [
+        "id",
+        "title"
+    ]
+
+    readonly_fields = [
+        "get_file_url",
+        "id"
+    ]
+
+    list_filter = [
+        "tags",
+        "created_at",
+        "updated_at"
+    ] 
+
+
+
+admin.site.register(FileTag, FileTagAdmin)
+admin.site.register(File, FileAdmin)
 admin.site.register(PictureTag, PictureTagAdmin)
 admin.site.register(Picture, PictureAdmin)
 
