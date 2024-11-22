@@ -24,6 +24,8 @@ from sevo_auth.views import fake_home
 
 from sevo_pages.views import homepage
 
+from sevo_maintainance.views import maintainance
+
 
 
 
@@ -35,7 +37,8 @@ urlpatterns = [
     path("page/", include("sevo_pages.urls")),
 
     path("immo/", include("immo_test.urls")),
-    path("page/", include("sevo_pages.urls"))
+    path("page/", include("sevo_pages.urls")),
+    path("maintainance/", maintainance, name="sevo-maintainance")
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
