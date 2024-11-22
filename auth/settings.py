@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     "sevo_pages",
     "sevo_media",
     "sevo_gallery",
-    "sevo_downloads"
+    "sevo_downloads",
+    "sevo_maintainance"
 
 ]
 
@@ -59,6 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    "sevo_maintainance.middleware.SevoMaintainanceMiddleware"
 ]
 
 ROOT_URLCONF = 'auth.urls'
