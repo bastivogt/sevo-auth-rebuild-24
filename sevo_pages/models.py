@@ -106,6 +106,19 @@ class Article(models.Model):
         return f"#{self.id} {self.title} [{self.name}]"
     
 
+    def get_content_rendered(self):
+        from django.template import Template, Context
+        from django.template.loader import render_to_string
+        try:
+            tpl = Template("{% load page_tags %}" + self.content)
+            return tpl.render(Context({}))
+        except:
+            return self.content
+        # tpl = render_to_string("sevo_pages/partials/helper/article_content.html", {
+        #     "content": self.content 
+        # })
+        # return tpl
+
     class Meta:
         ordering = ["-updated_at"]
         verbose_name = _("Article")

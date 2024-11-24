@@ -16,10 +16,10 @@
 
 
 {% block content %}
-{% comment %} 
-    {% include "./partials/_content.html" %} {% endcomment %}
+ 
+    {% include "./partials/_content.html" %}
 
-    {{ content }}
+    {% comment %} {{ content }} {% endcomment %}
 
     
 {% endblock %}
