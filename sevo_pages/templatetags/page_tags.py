@@ -17,3 +17,7 @@ def is_active_page(path, page):
     
 
 
+
+@register.simple_tag
+def greeting(name="John"):
+    return f"Hello, {name}!"

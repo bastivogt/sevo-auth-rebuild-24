@@ -1,0 +1,15 @@
+{% load page_tags %}
+{% for particle in page.get_published_pagearticles %}
+    
+    <article>
+        <h2>{{ particle.get_article.title }}</h2>
+        <p>
+            
+
+            {{ particle.get_article.content|safe }}
+            
+            
+        </p>
+    </article>
+{% endfor %}
+
