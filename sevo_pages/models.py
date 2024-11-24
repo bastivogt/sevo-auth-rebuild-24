@@ -110,7 +110,7 @@ class Article(models.Model):
         from django.template import Template, Context
         from django.template.loader import render_to_string
         try:
-            tpl = Template("{% load page_tags %}" + self.content)
+            tpl = Template("{% load sevo_tags %}" + self.content)
             return tpl.render(Context({}))
         except:
             return self.content

@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     "sevo_auth",
     "immo_test", 
     "immo_test_many2many", 
+
+    "sevo_templatetags",
+
     "sevo_pages",
     "sevo_media",
     "sevo_gallery",
