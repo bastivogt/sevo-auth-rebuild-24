@@ -41,11 +41,11 @@ def get_article_by_id(id):
     
 
 @register.simple_tag
-def get_image_tag(id, w="400", h="auto", wrapper=True):
+def image_tag(id, w="400", h="auto", wrapper=True):
     try:
         picture = Picture.objects.get(id=int(id))
         print("Picture Tag", picture)
-        return render_to_string("sevo_media/partials/_image.html", {
+        return render_to_string("sevo_templatetags/partials/_image.html", {
             "picture": picture,
             "width": w,
             "height": h,
@@ -58,11 +58,11 @@ def get_image_tag(id, w="400", h="auto", wrapper=True):
     
 
 @register.simple_tag
-def get_audio_tag(id, download=True, caption=True, download_caption="Download"):
+def audio_tag(id, download=True, caption=True, download_caption="Download"):
     try:
         audio = File.objects.get(id=int(id))
 
-        return render_to_string("sevo_media/partials/_audio.html", {
+        return render_to_string("sevo_templatetags/partials/_audio.html", {
             "audio": audio,
             "download": download,
             "download_caption": download_caption,
