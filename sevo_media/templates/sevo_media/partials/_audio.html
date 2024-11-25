@@ -1,0 +1,15 @@
+<div class="audio-wrapper">
+    <figure>
+        {% if caption %}
+            <figcaption>
+                <h4>{{ audio.title }}</h4>
+            </figcaption>
+        {% endif %}
+        <audio src="{{ audio.get_file_url }}" controls width="{{ width }}" height="{{ height }}"></audio>
+        {% if download %}
+            <div class="download">
+                <a href="{{ audio.get_file_url }}" download>{{ download_caption }}</a>
+            </div>
+        {% endif %}
+    </figure>
+</div>

@@ -1,0 +1,7 @@
+{% if wrapper %}
+    <div class="image-wrapper">
+        <img src="{{ picture.get_image_url  }}" alt="{{ picture.title }}" width="{{ width }}" height="{{ height }}" title="{{ picture.title }}">
+    </div>
+{% else %}
+    <img src="{{ picture.get_image_url  }}" alt="{{ picture.title }}" width="{{ width }}" height="{{ height }}" title="{{ picture.title }}">
+{% endif %}

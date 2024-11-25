@@ -57,6 +57,7 @@ class Picture(models.Model):
             return self.image.url
         return None
     
+    
     @admin.display(description="Tags")
     def get_tags_as_str(self):
         tags = self.tags.all()
