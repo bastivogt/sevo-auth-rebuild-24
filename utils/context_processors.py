@@ -1,20 +1,23 @@
+from sevo_pages import settings
+
 from sevo_pages.models import Menu, Page
 
 
-class PageChecker():
-    def __init__(self, path, page):
-        self.path = path
-        self.page = page
 
-    def is_active_page(self):
-        return self.page.get_absolute_url() == self.path
+# class PageChecker():
+#     def __init__(self, path, page):
+#         self.path = path
+#         self.page = page
+
+#     def is_active_page(self):
+#         return self.page.get_absolute_url() == self.path
 
 
 
 def menus_context(request):
     menus = Menu.objects.all()
-    menu_main = menus.get(name="Main")
-    menu_meta = menus.get(name="Meta")
+    menu_main = menus.get(name=settings.SEVO_PAGES_MENU_MAIN)
+    menu_meta = menus.get(name=settings.SEVO_PAGES_MENU_META)
 
     homepage = Page.get_home_page()
 
