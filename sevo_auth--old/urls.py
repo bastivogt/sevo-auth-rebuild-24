@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import sign_up, index, sign_in, sign_out, change_user_data, change_password, set_new_password, forgot_password, delete
+from .views import sign_up, index, sign_in, sign_out, change_user_data, change_password, set_new_password, forgot_password
 
 urlpatterns = [
     path("sign-up/", sign_up, name="sevo-auth-sign-up"),
@@ -10,6 +10,5 @@ urlpatterns = [
     path("change-password/", change_password, name="sevo-auth-change-password"),
     path("forgot-password/", forgot_password, name="sevo-auth-forgot-password"),
     path("set-new-password/<str:token>/", set_new_password, name="sevo-auth-set-new-password"),
-    path("delete/", delete, name="sevo-auth-delete"),
     path("", index, name="sevo-auth-index")
 ]

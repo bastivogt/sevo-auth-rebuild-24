@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }}{% endblock %}
+
+
+{% block content %}
+    <h1>{{ title }}</h1>
+    <p>
+        {% trans "Do you really want to delete yourself?" %}
+    </p>
+    <form action="" method="post">
+        {% csrf_token %}
+        <button class="btn btn-danger">{% trans "Delete" %}</button>
+    </form>
+
+{% endblock %}

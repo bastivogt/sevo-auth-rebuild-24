@@ -120,7 +120,6 @@ def sign_in(request):
 
 
 # sign out
-@login_required(login_url="sevo-auth-sign-in")
 def sign_out(request):
     logout(request)
     messages.add_message(request, messages.SUCCESS, _("You are signed out!"))
@@ -282,14 +281,3 @@ def set_new_password(request, token):
     })
 
 
-
-
-@login_required(login_url="sevo-auth-sign-in")
-def delete(request):
-    if request.method == "POST":
-        user = request.user
-        user.delete()
-        return redirect(settings.SEVO_AUTH_REDIRECT_AFTER_DELETE)
-    return render(request, "sevo_auth/delete.html", {
-        "title": _("Delete")
-    })

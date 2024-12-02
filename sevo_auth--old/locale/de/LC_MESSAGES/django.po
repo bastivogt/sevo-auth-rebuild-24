@@ -1,0 +1,153 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-17 00:49+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: sevo_auth/forms.py:62 sevo_auth/forms.py:104 sevo_auth/forms.py:148
+#: sevo_auth/forms.py:165
+msgid "Email"
+msgstr "E-Mail"
+
+#: sevo_auth/forms.py:63 sevo_auth/forms.py:105 sevo_auth/forms.py:149
+#: sevo_auth/forms.py:166
+msgid "Username"
+msgstr "Benutzername"
+
+#: sevo_auth/forms.py:64 sevo_auth/forms.py:106
+msgid "Firstname"
+msgstr "Vorname"
+
+#: sevo_auth/forms.py:65 sevo_auth/forms.py:107
+msgid "Lastname"
+msgstr "Nachname"
+
+#: sevo_auth/forms.py:66 sevo_auth/forms.py:167
+msgid "Password"
+msgstr "Passwort"
+
+#: sevo_auth/forms.py:67 sevo_auth/forms.py:168
+msgid "Password confirm"
+msgstr "Passwort bestätigen"
+
+#: sevo_auth/forms.py:129
+msgid "Password old"
+msgstr "Altes Passwort"
+
+#: sevo_auth/forms.py:130
+msgid "Password new"
+msgstr "Neues Passwort"
+
+#: sevo_auth/forms.py:131
+msgid "Password new confirm"
+msgstr "Neues Passwort bestätigen"
+
+#: sevo_auth/templates/sevo_auth/change_password.html:28
+#: sevo_auth/templates/sevo_auth/change_user_data.html:28
+msgid "Save"
+msgstr "Speichern"
+
+#: sevo_auth/templates/sevo_auth/change_user_data.html:29
+msgid "Back to index"
+msgstr "Zurück zu index"
+
+#: sevo_auth/templates/sevo_auth/forgot_password.html:29
+#: sevo_auth/templates/sevo_auth/index.html:28
+msgid "Forgot password"
+msgstr "Passwort vergessen"
+
+#: sevo_auth/templates/sevo_auth/index.html:13
+msgid "Hello"
+msgstr "Hallo"
+
+#: sevo_auth/templates/sevo_auth/index.html:20
+#: sevo_auth/templates/sevo_auth/sign_up.html:28 sevo_auth/views.py:81
+#: sevo_auth/views.py:91
+msgid "Sign up"
+msgstr "Registrieren"
+
+#: sevo_auth/templates/sevo_auth/index.html:24
+msgid "Sign in"
+msgstr "Anmelden"
+
+#: sevo_auth/templates/sevo_auth/index.html:32
+msgid "Sign out"
+msgstr "Abmelden"
+
+#: sevo_auth/templates/sevo_auth/index.html:35 sevo_auth/views.py:159
+msgid "Change user data"
+msgstr "Benutzedaten ändern"
+
+#: sevo_auth/templates/sevo_auth/index.html:38
+msgid "Change password"
+msgstr "Passwort ändern"
+
+#: sevo_auth/templates/sevo_auth/login.html:28 sevo_auth/views.py:117
+msgid "Login"
+msgstr "Login"
+
+#: sevo_auth/templates/sevo_auth/set_new_password.html:28
+msgid "Submit"
+msgstr "Absenden"
+
+#: sevo_auth/views.py:28
+msgid "Fake home"
+msgstr "Fake Home"
+
+#: sevo_auth/views.py:35
+msgid "Auth index"
+msgstr "Auth index"
+
+#: sevo_auth/views.py:76
+msgid "You are sigend up!"
+msgstr "Du bist registriert!"
+
+#: sevo_auth/views.py:78
+msgid "Something went wrong!"
+msgstr "Etwas ist schief gelaufen!"
+
+#: sevo_auth/views.py:111
+msgid "You are signed in!"
+msgstr "Du bist angemeldet!"
+
+#: sevo_auth/views.py:114
+msgid "You are not signed in!"
+msgstr "Du bist nicht angemeldet!"
+
+#: sevo_auth/views.py:125
+msgid "You are signed out!"
+msgstr "Du bist abgemeldet!"
+
+#: sevo_auth/views.py:188
+msgid "Password changed!"
+msgstr "Altes Passwort"
+
+#: sevo_auth/views.py:191
+msgid "Something went wrong, try again!"
+msgstr "Etwas ist schief gelaufen, versuche es nochmal!"
+
+#: sevo_auth/views.py:230
+msgid "Passwordreset"
+msgstr "Passwort Reset"
+
+#: sevo_auth/views.py:270
+msgid "New password setted!"
+msgstr "Neues Passwort gesetzt"
+
+#: sevo_auth/views.py:273
+msgid "Something went wrong, ty again!"
+msgstr "Etwas ist schief gelaufen!"
