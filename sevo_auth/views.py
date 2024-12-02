@@ -152,8 +152,12 @@ def change_user_data(request):
             current_user.first_name = first_name
             current_user.last_name = last_name
             current_user.email = email
-
-            current_user.save()
+            try:
+                current_user.save()
+                messages.add_message(request, messages.SUCCESS, _("User data changed!"))
+                return redirect(settings.SEVO_AUTH_REDIRECT_AFTER_USER_DATA_CHANGE)
+            except:
+                messages.add_message(request, messages.ERROR, _("Something went wrong! User data not changed!"))
                     
 
     return render(request, "sevo_auth/change_user_data.html", {
