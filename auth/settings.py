@@ -82,7 +82,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                "utils.context_processors.menus_context"
+                "sevo_pages.context_processors.menus_context"
             ],
         },
     },

@@ -1,16 +1,6 @@
-from sevo_pages import settings
+from . import settings
 
-from sevo_pages.models import Menu, Page
-
-
-
-# class PageChecker():
-#     def __init__(self, path, page):
-#         self.path = path
-#         self.page = page
-
-#     def is_active_page(self):
-#         return self.page.get_absolute_url() == self.path
+from .models import Menu, Page
 
 
 
